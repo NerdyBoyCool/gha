@@ -13,4 +13,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-        echo "デプロイを開始しました (${{ github.event.comment.body }})"
+          echo "デプロイを開始しました (${{ github.event.comment.body }})"
