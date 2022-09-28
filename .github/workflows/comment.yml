@@ -5,6 +5,8 @@ on:
     types: [created, edited]
 
 jobs:
-  steps:
-    - uses: actions/checkout@v3
-    - run: echo "HI"
+    comment:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - run: echo "HI"
