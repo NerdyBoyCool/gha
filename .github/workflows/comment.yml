@@ -1,0 +1,9 @@
+name: Comment
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  - uses: actions/checkout@v3
+  - run: echo "HI"
