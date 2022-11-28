@@ -23,6 +23,4 @@ jobs:
         if: steps.command.outputs.command-name == 'deploy'
         run: |
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
-          echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.author }} }' |  gh workflow run workflow-dispatch.yml
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.author }} }'
