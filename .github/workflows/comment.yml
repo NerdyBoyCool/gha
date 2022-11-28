@@ -1,16 +1,28 @@
-name: Comment
+name: Slash Commands
 
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
 jobs:
-  comment:
-    if: github.event_name == 'issue_comment' &&
-        contains(github.event.comment.html_url, '/pull/') && 
-        startsWith(github.event.comment.body, '/deploy') )
-    runs-on: ubuntu-latest
+  deploy:
+    if: ${{ github.event.issue.pull_request }}
+    name: Check comments for /deploy
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
-      - run: |
-          echo "デプロイを開始しました (${{ github.event.comment.body }})"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check for Command
+        id: command
+        uses: xt0rted/slash-command-action@v1
+        with:
+          command: deploy
+          reaction: "false"
+          repo-token: ${{ secrets.GHA_TOKEN }}
+      - name: Dispatch Workflow
+        if: steps.command.outputs.command-name == 'deploy'
+        run: |
+          echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
+          echo '{ "pr_number": ${{ github.event.issue.number }} , "author": ${{ github.event.issue.author }} }' |  gh workflow run reviewapp-deployment.yml
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
