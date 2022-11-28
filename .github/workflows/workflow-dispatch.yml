@@ -1,7 +1,7 @@
 name: Workflow Dispatch
 on:
   workflow_dispatch:
-   inputs:
+    inputs:
       pr_number:
         description: 'Pull Request Number'
         required: true
