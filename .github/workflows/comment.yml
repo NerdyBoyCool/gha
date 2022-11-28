@@ -25,4 +25,4 @@ jobs:
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
           echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.author }} }' |  gh workflow run workflow-dispatch.yml
         env:
-          GITHUB_TOKEN: ${{ secrets.GHA_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
