@@ -15,8 +15,6 @@ jobs:
       - name: Check for Command
         id: command
         uses: xt0rted/slash-command-action@v1
-        env: 
-          GH_TOKEN: ${{ secrets.GHA_TOKEN }}
         with:
           command: deploy
           reaction: "false"
@@ -27,4 +25,4 @@ jobs:
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
           echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.author }} }' |  gh workflow run workflow-dispatch.yml
         env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GHA_TOKEN }}
