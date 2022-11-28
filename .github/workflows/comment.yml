@@ -23,4 +23,4 @@ jobs:
         if: steps.command.outputs.command-name == 'deploy'
         run: |
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
-          echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.user.author }} }'
+          echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.user.login }} }'
