@@ -25,6 +25,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
+          echo '1' $GITHUB_REF
+          echo '2' ${{ github.ref }}
+          echo '3' ${{ github.ref_name }}
+          echo '4' ${{ github.head_ref }}
+          echo '5' ${{ github.base_ref }}
           echo '{ "pr_number": ${{ github.event.issue.number }} , "author": ${{ github.event.issue.author }} }'
           echo "------"
           echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.user.login }} }' | gh workflow run workflow-dispatch.yml --json
