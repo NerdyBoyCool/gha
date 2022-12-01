@@ -25,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
-          echo '1' $GITHUB_REF
+          echo 'HEYYYYYYYYYY'
           echo '2' ${{ github.ref }}
           echo '3' ${{ github.ref_name }}
           echo '4' ${{ github.head_ref }}
