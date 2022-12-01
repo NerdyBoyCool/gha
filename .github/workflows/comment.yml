@@ -16,12 +16,6 @@ jobs:
         if: success()
         with:
           ref: ${{ steps.comment-branch.outputs.head_ref }}
-      - name: get upstream branch
-        id: upstreambranch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "::set-output name=branchname::$(curl -H "Authorization: token ${GITHUB_TOKEN}" ${{ github.event.issue.pull_request.url }} | jq '.head.ref' | sed 's/\"//g')"
       - name: Check for Command
         id: command
         uses: xt0rted/slash-command-action@v1
@@ -34,12 +28,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          echo '1' $GITHUB_REF
-          echo '2' ${{ github.ref }}
-          echo '3' ${{ github.ref_name }}
-          echo '4' ${{ github.head_ref }}
-          echo '5' ${{ github.base_ref }}
-
           echo "The command was '${{ steps.command.outputs.command-name }}' with arguments '${{ steps.command.outputs.command-arguments }}'"
-          echo '{ "pr_number": ${{ github.event.issue.number }}, "author": ${{ github.event.issue.user.login }} }' | gh workflow run workflow-dispatch.yml --ref ${{ steps.comment-branch.outputs.head_ref }} --json
+          gh workflow run workflow-dispatch.yml --ref ${{ steps.comment-branch.outputs.head_ref }} -f author=${{ github.event.issue.user.login }} pr_number=${{ github.event.issue.number }}
 
