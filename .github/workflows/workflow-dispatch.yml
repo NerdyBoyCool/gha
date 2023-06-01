@@ -16,4 +16,4 @@ jobs:
           version: 'a580504'
           organization: 'waroom-production-takaya'
           service: 'waroom-production-takaya'
-          integration_token: 'xxx'
+          integration_token: ${{ secrets.WAROOM_DEPLOYMENT_INTEGRATION_KEY }}
