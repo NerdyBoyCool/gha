@@ -1,24 +1,19 @@
 name: Workflow Dispatch
 on:
   workflow_dispatch:
-    inputs:
-      pr_number:
-        description: 'Pull Request Number'
-        required: true
-      author:
-        description: 'Pull Request Author'
-        required: true
-
 jobs:
   ###########################################################
   # db-migrate は db/** に変更があった場合のみ実行します。
   # すでに存在する場合は、checkout だけ実施して成功ステータスにします。
   ###########################################################
-  changes:
+  deploy:
     name: changes
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          echo ${{ github.event.inputs.pr_number }}
-          echo ${{ github.event.inputs.author }}
+      - uses: NerdyBoyCool/waroom-deployment@v0.1.0
+        with:
+          version: 'a580504'
+          organization: 'waroom-production-takaya'
+          service: 'waroom-production-takaya'
+          integration_token: 'xxx'
